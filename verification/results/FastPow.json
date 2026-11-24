@@ -1,0 +1,19 @@
+{
+ "ok": true,
+ "mode": "prove",
+ "theorem": "powFast_eq",
+ "stage": "passed",
+ "errors": [],
+ "axioms": [
+  "propext",
+  "Quot.sound"
+ ],
+ "needs_human_review": false,
+ "type_lock": {
+  "original_found": true,
+  "candidate_found": true
+ },
+ "seconds": 6.1,
+ "job": "r1_FastPow",
+ "wall_seconds": 6.1
+}

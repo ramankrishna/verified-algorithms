@@ -1,0 +1,28 @@
+{
+ "repo": "verified-algorithms",
+ "registered_at": "2026-11-24T00:34:03.881541+00:00",
+ "lean_success": "verifier.py ok=true via the Mac watcher: static, statement lock, prefix lock (implementation defs are frozen), compile, elaborated type lock, axioms within {propext, Classical.choice, Quot.sound}",
+ "python_success": "every implementation passes its tests against the standard library or an independent brute force",
+ "theorems": {
+  "BinarySearch.lean": "59387536978e451b464becbfc3b1659bff10c4d699f0b75d89d361058ef092c3",
+  "C84MinDegreeTwo.lean": "713e090463b24120d6bdb8afe401474f0b257f17dcc2882506c32424b3eb818b",
+  "Euclid.lean": "b5f6eba51021f0d7c17efa6cf22059700a2d5f6368174da1dee1b02d599b4265",
+  "FastPow.lean": "3dba1122815756be71375b79c41b30cde339e24f423fc9053db880fb58a105b8",
+  "FibDP.lean": "761976184358d810d88d15db36ec9afed972bb04612f9ad5c5abd3cd6b06bbf3",
+  "GraphTree.lean": "1e1afcdc495f697362d12d1510e7072ee2e2ec92e7cc9b1f9e2466a961da17ef",
+  "InsertionSort.lean": "40c71e3e35de3d631f9ffe4f157340317434b695ff05804f7aa4e5c6bb61ec1f",
+  "MergeSort.lean": "d0ce27020edac5feaf074ff646ef8d834621209465592b13e9d6eddc38d71d2e"
+ },
+ "also_counted": {
+  "GraphConjecture96 (WOWII 96 independence bound)": "already verified against the upstream formal-conjectures statement"
+ },
+ "python_only": [
+  "Havel-Hakimi residue",
+  "Hamiltonian path DP",
+  "path cover DP",
+  "vertex connectivity",
+  "independence number",
+  "largest induced tree / forest search"
+ ],
+ "null_result_policy": "a theorem that is not verified is reported as not verified; implementations and statements are not changed after registration"
+}

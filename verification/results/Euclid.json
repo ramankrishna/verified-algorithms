@@ -1,0 +1,19 @@
+{
+ "ok": true,
+ "mode": "prove",
+ "theorem": "euclid_eq_gcd",
+ "stage": "passed",
+ "errors": [],
+ "axioms": [
+  "propext",
+  "Quot.sound"
+ ],
+ "needs_human_review": false,
+ "type_lock": {
+  "original_found": true,
+  "candidate_found": true
+ },
+ "seconds": 6.1,
+ "job": "r1_Euclid",
+ "wall_seconds": 6.1
+}

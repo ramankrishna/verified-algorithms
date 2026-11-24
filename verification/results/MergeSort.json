@@ -1,0 +1,20 @@
+{
+ "ok": true,
+ "mode": "prove",
+ "theorem": "mergeSort_correct",
+ "stage": "passed",
+ "errors": [],
+ "axioms": [
+  "propext",
+  "Classical.choice",
+  "Quot.sound"
+ ],
+ "needs_human_review": false,
+ "type_lock": {
+  "original_found": true,
+  "candidate_found": true
+ },
+ "seconds": 6.4,
+ "job": "r1_MergeSort",
+ "wall_seconds": 6.4
+}

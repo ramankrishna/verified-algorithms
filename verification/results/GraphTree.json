@@ -1,0 +1,20 @@
+{
+ "ok": true,
+ "mode": "prove",
+ "theorem": "radius_succ_le_tree",
+ "stage": "passed",
+ "errors": [],
+ "axioms": [
+  "propext",
+  "Classical.choice",
+  "Quot.sound"
+ ],
+ "needs_human_review": false,
+ "type_lock": {
+  "original_found": true,
+  "candidate_found": true
+ },
+ "seconds": 6.6,
+ "job": "r1_GraphTree",
+ "wall_seconds": 6.6
+}

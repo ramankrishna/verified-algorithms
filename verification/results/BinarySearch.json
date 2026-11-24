@@ -1,0 +1,19 @@
+{
+ "ok": true,
+ "mode": "prove",
+ "theorem": "lowerBound_spec",
+ "stage": "passed",
+ "errors": [],
+ "axioms": [
+  "propext",
+  "Quot.sound"
+ ],
+ "needs_human_review": false,
+ "type_lock": {
+  "original_found": true,
+  "candidate_found": true
+ },
+ "seconds": 6.3,
+ "job": "r1_BinarySearch",
+ "wall_seconds": 6.3
+}
