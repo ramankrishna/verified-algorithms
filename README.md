@@ -13,18 +13,22 @@ implementation, and a Lean 4 proof that the same procedure is correct.
 | Insertion sort | ✓ | ✓ | ✓ verified |
 | Merge sort | ✓ | ✓ | ✓ verified |
 | Binary search (lower bound) | ✓ | ✓ | ✓ verified |
+| Dijkstra's shortest paths | ✓ | ✓ | ✓ verified |
+| Union-find (quick-find) | ✓ | ✓ | ✓ verified |
 | BFS radius bound: tree(G) ≥ rad(G) + 1 | ✓ | ✓ | ✓ verified |
 | WOWII 84 for minimum degree ≥ 2 | ✓ | ✓ | ✓ verified |
 | WOWII 96 independence bound | ✓ | ✓ | ✓ verified |
+| Heap-based Dijkstra, union-find with path compression | ✓ | ✓ | not formalized |
 | Independence number, largest induced tree and forest, Havel–Hakimi residue, Hamiltonian path DP, path cover DP, vertex connectivity | ✓ | ✓ | not formalized |
 
-**9 of 9 Lean theorems verified.** Every verified proof uses only Lean's standard axioms
+**11 of 11 Lean theorems verified.** Every verified proof uses only Lean's standard axioms
 (`propext`, `Classical.choice`, `Quot.sound`), so there is no `sorry`, no `native_decide` and no added axiom.
 The implementations and theorem statements were fixed and hashed before any proof was written.
 Each one was checked to compile in Lean before any proof attempt.
 
-**Python: 866 tests pass.** They check against the standard library (`math.gcd`, `pow`,
-`sorted`, `bisect`) and against networkx. The three graph theorems are also checked numerically
+**Python: 869 tests pass.** They check against the standard library (`math.gcd`, `pow`,
+`sorted`, `bisect`) and against networkx, including 600 random weighted digraphs for Dijkstra
+and 800 random union sequences for union-find. The three graph theorems are also checked numerically
 on every connected graph with 2 to 7 vertices (995 graphs).
 
 ## How a Lean proof is accepted
@@ -80,6 +84,30 @@ p is false on [lo, r), and p is true on [r, hi). For p(i) = (a[i] ≥ x) this is
 p true on [mid, hi), so recurse on [lo, mid). If not, monotonicity makes p false on [lo, mid], so recurse
 on [mid+1, hi). Each branch strictly shrinks the interval.
 **Cost.** O(log(hi − lo)) evaluations of p.
+
+### Dijkstra's shortest paths
+**Theorem.** For a directed graph with non-negative integer weights, the distance Dijkstra reports
+for v is the weight of some walk from s to v, and it is at most the weight of every walk from s to v.
+So it is exactly the shortest-path distance, and "unreachable" exactly when no walk exists.
+**Proof.** Four invariants hold after every round, with *settled* meaning already extracted:
+1. every tentative distance is the weight of a real walk
+2. settled vertices are never farther than unsettled ones
+3. a settled vertex's distance never changes again, since anything relaxed later costs at least the current minimum
+4. every edge out of a settled vertex is relaxed
+
+The loop stops once no unsettled vertex has a finite distance, or after n rounds when everything is
+settled. Then induction on any walk shows the reported distance is at most the walk's weight: the
+walk's second-to-last vertex is settled, and its last edge was relaxed.
+**Cost.** O(n²) for the array version proved in Lean; O((n + m) log n) with a heap.
+
+### Union-find (quick-find)
+**Theorem.** After processing a list of unions, two elements have the same label exactly when they
+are connected by the unions, i.e. related by the equivalence relation the pairs generate.
+**Proof.** Induction over the list, with two invariants. Every element is equivalent to its own label,
+because labels only move to the label of the other side of a union. Equivalent elements share a label,
+because a union preserves equal labels and makes the two united elements share one.
+**Cost.** O(n) per union for quick-find; the path-compression version runs in near-constant
+amortized time per operation.
 
 ### BFS radius bound
 **Theorem.** Every connected graph has an induced tree on at least rad(G) + 1 vertices.
