@@ -85,3 +85,91 @@ def lower_bound(p: Callable[[int], bool], lo: int, hi: int) -> int:
         else:
             lo = mid + 1
     return lo
+
+
+# ------------------------------------------------------------------ shortest paths
+
+def dijkstra_array(n: int, w: dict[tuple[int, int], int], s: int) -> list[int | None]:
+    """O(n^2) Dijkstra, step for step the Lean `dijkstra`: settle the unvisited vertex with the
+    smallest finite tentative distance (ties to the smallest index), relax its out-edges.
+    `w[(u, v)]` is the weight of the directed edge u -> v (non-negative). None = unreachable."""
+    if any(c < 0 for c in w.values()):
+        raise ValueError("non-negative weights only")
+    out: list[list[tuple[int, int]]] = [[] for _ in range(n)]
+    for (u, v), c in w.items():
+        out[u].append((v, c))
+    dist: list[int | None] = [None] * n
+    dist[s] = 0
+    visited = [False] * n
+    for _ in range(n):
+        u, du = None, None
+        for v in range(n):
+            if not visited[v] and dist[v] is not None and (du is None or dist[v] < du):
+                u, du = v, dist[v]
+        if u is None:
+            break
+        visited[u] = True
+        for v, c in out[u]:
+            if dist[v] is None or du + c < dist[v]:
+                dist[v] = du + c
+    return dist
+
+
+def dijkstra_heap(n: int, w: dict[tuple[int, int], int], s: int) -> list[int | None]:
+    """O((n + m) log n) Dijkstra with a binary heap and lazy deletion. Same answer as the
+    array version; the Lean proof covers the array version."""
+    import heapq
+    if any(c < 0 for c in w.values()):
+        raise ValueError("non-negative weights only")
+    out: list[list[tuple[int, int]]] = [[] for _ in range(n)]
+    for (u, v), c in w.items():
+        out[u].append((v, c))
+    dist: list[int | None] = [None] * n
+    dist[s] = 0
+    heap = [(0, s)]
+    while heap:
+        d, u = heapq.heappop(heap)
+        if d != dist[u]:
+            continue
+        for v, c in out[u]:
+            if dist[v] is None or d + c < dist[v]:
+                dist[v] = d + c
+                heapq.heappush(heap, (d + c, v))
+    return dist
+
+
+# ------------------------------------------------------------------ disjoint sets
+
+def uf_build(n: int, pairs) -> list[int]:
+    """Quick-find, exactly the Lean `ufBuild`: start with lbl[x] = x; union(a, b) gives every
+    element labelled lbl[a] the label lbl[b]. O(n) per union."""
+    lbl = list(range(n))
+    for a, b in pairs:
+        la, lb = lbl[a], lbl[b]
+        lbl = [lb if l == la else l for l in lbl]
+    return lbl
+
+
+class UnionFind:
+    """Union by size with path compression: near-constant amortized time per operation."""
+
+    def __init__(self, n: int):
+        self.parent = list(range(n))
+        self.size = [1] * n
+
+    def find(self, x: int) -> int:
+        root = x
+        while self.parent[root] != root:
+            root = self.parent[root]
+        while self.parent[x] != root:
+            self.parent[x], x = root, self.parent[x]
+        return root
+
+    def union(self, a: int, b: int) -> None:
+        ra, rb = self.find(a), self.find(b)
+        if ra == rb:
+            return
+        if self.size[ra] < self.size[rb]:
+            ra, rb = rb, ra
+        self.parent[rb] = ra
+        self.size[ra] += self.size[rb]

@@ -24,5 +24,15 @@
   "independence number",
   "largest induced tree / forest search"
  ],
- "null_result_policy": "a theorem that is not verified is reported as not verified; implementations and statements are not changed after registration"
+ "null_result_policy": "a theorem that is not verified is reported as not verified; implementations and statements are not changed after registration",
+ "amendments": [
+  {
+   "added_at": "2026-11-24T01:27:07.684421+00:00",
+   "theorems": {
+    "Dijkstra.lean": "a4f3430de58681aeed3b33443a1d11a16c66e498a619d7ac43212e03f725e464",
+    "UnionFind.lean": "0717ef321850e4efc93250c09847e82da85f25153478de312caeec1167fbc635"
+   },
+   "note": "Second batch. Statements and implementations frozen after both were checked to elaborate, before any proof attempt. Union-find is the quick-find variant (relabel on union)."
+  }
+ ]
 }

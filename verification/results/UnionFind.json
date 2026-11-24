@@ -1,0 +1,19 @@
+{
+ "ok": true,
+ "mode": "prove",
+ "theorem": "ufBuild_correct",
+ "stage": "passed",
+ "errors": [],
+ "axioms": [
+  "propext",
+  "Quot.sound"
+ ],
+ "needs_human_review": false,
+ "type_lock": {
+  "original_found": true,
+  "candidate_found": true
+ },
+ "seconds": 6.7,
+ "job": "r2_UnionFind",
+ "wall_seconds": 6.7
+}
